@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "120405352918",
+    "project_id": "biharpratidin-25f67",
+    "storage_bucket": "biharpratidin-25f67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120405352918:android:bcd83ff64cf3faa7c2c477",
+        "android_client_info": {
+          "package_name": "com.bihar.pratidin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120405352918-stqdcud71i67fpii6h4djdjrb4bb6hnp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmvGp47Rhk7HwMxLrVBlhDqsmcy34WAis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120405352918-stqdcud71i67fpii6h4djdjrb4bb6hnp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

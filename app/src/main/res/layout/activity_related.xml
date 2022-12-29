@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/swipe"
+    tools:context=".Activity.RelatedActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:background="@color/background"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <TextView
+                    android:id="@+id/txtBack"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:drawableTint="@color/white"
+                    android:drawableStart="@drawable/ic_baseline_arrow_back_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txtListen"
+                    android:text="इस खबर को सुनिये "
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:drawableTint="@color/white"
+                    android:drawableEnd="@drawable/ic_baseline_volume_up_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+            <ScrollView
+                android:layout_marginBottom="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/txtTitle"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:maxLines="3"
+                        android:layout_marginTop="10dp"
+                        android:padding="10dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/layoutImage"
+                            android:layout_marginTop="10dp"
+                            android:scaleType="fitXY"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"/>
+
+                        <com.github.ybq.android.spinkit.SpinKitView
+                            android:id="@+id/spin_kit"
+                            style="@style/SpinKitView.Large.FadingCircle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            app:SpinKit_Color="@color/colorAccent" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerAuthor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
+
+                        <TextView
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/recyclerAuthor"
+                            android:id="@+id/txtSep"
+                            android:textSize="12sp"
+                            android:text=" | "
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/txtSep"
+                            android:id="@+id/txtTime"
+                            android:textSize="12sp"
+                            android:layout_marginStart="10dp"
+                            android:textColor="@color/grey_font"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/txtShare"
+                            android:layout_centerVertical="true"
+                            android:drawableTint="@color/background"
+                            android:layout_alignParentEnd="true"
+                            android:drawableEnd="@drawable/ic_baseline_share_24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="12dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/imgAd"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ad_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/txtSummary"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:textStyle="normal"
+                        android:textAlignment="center"
+                        android:textColor="@color/background"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <include
+                        android:id="@+id/admob_native_container"
+                        layout="@layout/admob_native_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:elevation="3dp"
+                        android:paddingStart="20dp"
+                        android:visibility="gone"/>
+
+
+                    <TextView
+                        android:id="@+id/txtContent"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:textStyle="normal"
+                        android:textAlignment="center"
+                        android:textColor="@color/background"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textColor="@color/white"
+                        android:text="Related News"
+                        android:singleLine="true"
+                        android:padding="5dp"
+                        android:background="@color/background"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:background="@color/background"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerRelated"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/background"
+                        android:text="More News"
+                        android:id="@+id/txtMore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_marginTop="5dp"
+                        android:background="@color/background"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="10sp"
+                        android:id="@+id/recyclerAd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Bihar Pratidin</string>
+
+    <string name="app_id">ca-app-pub-6386368217278578~9063142855</string>
+
+    <string name="banner">ca-app-pub-6386368217278578/1735317170</string>
+    <string name="full_id">ca-app-pub-6386368217278578/4069798483</string>
+    <string name="native_id">ca-app-pub-6386368217278578/7732629750</string>
+    <string name="open_id">ca-app-pub-6386368217278578/6796072166</string>
+
+    <string name="channel_name">BiharPratidin</string>
+    <string name="channel_description">Notifications for Bihar Pratidin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notification_channel_id">101</string>
+
+</resources>
