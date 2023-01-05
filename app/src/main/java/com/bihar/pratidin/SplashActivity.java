@@ -3,6 +3,7 @@ package com.bihar.pratidin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.bihar.pratidin.Activity.HomeActivity;
 import com.bihar.pratidin.Common.Common;
+import com.bihar.pratidin.Remote.IMyAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -32,22 +35,31 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "101";
     NoInternetDialog noInternetDialog;
 
+    IMyAPI myAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         Common.checkAppUpdate(this);
 
+        createNotificationChannel();
+
         setContentView(R.layout.activity_splash);
+
+        myAPI = Common.getAPI();
+
+        getToken();
+
 
         noInternetDialog = new NoInternetDialog.Builder(this).build();
 
@@ -59,8 +71,6 @@ public class SplashActivity extends AppCompatActivity {
         }, 2000);
 
         //topicSubscribed();
-        createNotificationChannel();
-        getToken();
     }
 
 
@@ -76,23 +86,20 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("HardwareIds")
     private void registerToken(String token) {
+        String deviceId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder()
-                .add("token",token)
-                .build();
+        myAPI.insertToken(deviceId,token)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                    }
 
-        Request request = new Request.Builder()
-                .url("https://biharpratidin.com/AndroidApp/token.php")
-                .post(body)
-                .build();
-
-        try {
-            client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                    }
+                });
     }
 
     private void createNotificationChannel() {

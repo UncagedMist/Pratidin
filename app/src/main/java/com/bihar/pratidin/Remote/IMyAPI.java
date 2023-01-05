@@ -55,4 +55,11 @@ public interface IMyAPI {
     Observable<List<Author>> getAuthor(
             @Field("id") String id
     );
+
+    @FormUrlEncoded
+    @POST("insertToken.php")
+    Call<String> insertToken(
+            @Field("deviceId")String deviceId,
+            @Field("token")String token
+    );
 }
