@@ -1,5 +1,6 @@
 package com.bihar.pratidin.Notifications;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,14 +10,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.bihar.pratidin.Activity.HomeActivity;
+import com.bihar.pratidin.Common.Common;
 import com.bihar.pratidin.R;
+import com.bihar.pratidin.Remote.IMyAPI;
+import com.bihar.pratidin.SplashActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -32,8 +38,13 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
+    IMyAPI myAPI = Common.getAPI();
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
@@ -80,6 +91,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setOnlyAlertOnce(true);
 
         if (imageUrl != null) {
@@ -103,56 +115,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             InputStream input = connection.getInputStream();
             return BitmapFactory.decodeStream(input);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             Log.e("awesome", "Error in getting notification image: " + e.getLocalizedMessage());
             return null;
         }
     }
 
 
-//    private void showNotification(String title, String message, String image) {
-//
-//        GlideApp.with(getApplicationContext())
-//                .asBitmap()
-//                .load(image)
-//                .into(new CustomTarget<Bitmap>() {
-//                    @Override
-//                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-//                        //largeIcon
-//                        notificationBuilder.setLargeIcon(resource);
-//                        //Big Picture
-//                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(resource));
-//
-//                        Notification notification = notificationBuilder.build();
-//                        notificationManager.notify(NotificationID.getID(), notification);
-//                    }
-//
-//                    @Override
-//                    public void onLoadCleared(@Nullable Drawable placeholder) {
-//                    }
-//
-//                    @Override
-//                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
-//                        super.onLoadFailed(errorDrawable);
-//                    }
-//                });
-//
-
-//
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "101")
-//                .setSmallIcon(R.drawable.ic_baseline_newspaper_24)
-//                .setContentTitle(title)
-//                .setContentText(message)
-//                .setStyle(bigPictureStyle)
-//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//                // Set the intent that will fire when the user taps the notification
-//                .setContentIntent(pendingIntent)
-//                .setAutoCancel(true);
-//
-//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-//
-//        notificationManager.notify(1, builder.build());
-//    }
 
 
     @Override
@@ -161,25 +131,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Log.d("token", token);
 
-        //registerToken(token);
+        registerToken(token);
     }
 
+    @SuppressLint("HardwareIds")
     private void registerToken(String token) {
+        String deviceId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder()
-                .add("token",token)
-                .build();
+        myAPI.insertToken(deviceId,token)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                    }
 
-        Request request = new Request.Builder()
-                .url("https://biharpratidin.com/AndroidApp/token.php")
-                .post(body)
-                .build();
-
-        try {
-            client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                    }
+                });
     }
 }

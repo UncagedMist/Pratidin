@@ -2,6 +2,7 @@ package com.bihar.pratidin.Common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -10,6 +11,7 @@ import com.bihar.pratidin.Model.Featured;
 import com.bihar.pratidin.Model.Headline;
 import com.bihar.pratidin.Model.Recent;
 import com.bihar.pratidin.Model.Related;
+import com.bihar.pratidin.R;
 import com.bihar.pratidin.Remote.IMyAPI;
 import com.bihar.pratidin.Remote.RetrofitClient;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
@@ -98,5 +100,14 @@ public class Common {
 
     public static String html2text(String html) {
         return Jsoup.parse(html).text();
+    }
+
+    public static void shareApp(Context context,String title, String slug)    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String body = title + "\n\n"+Common.IMAGE_URL+slug +"\n\nShared from "+context.getString(R.string.app_name)+" \n\n" +
+                "बिहार की ताज़ा खबरें पाने के लिए प्ले-स्टोर से नीचे दिए गए लिंक से "+context.getString(R.string.app_name)+" App \nअभी डाउनलोड करें 👇👇 : \nhttps://play.google.com/store/apps/details?id="+context.getPackageName();
+        intent.putExtra(Intent.EXTRA_TEXT,body);
+        context.startActivity(Intent.createChooser(intent,"Share with : "));
     }
 }

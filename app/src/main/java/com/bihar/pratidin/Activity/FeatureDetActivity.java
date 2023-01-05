@@ -198,12 +198,7 @@ public class FeatureDetActivity extends AppCompatActivity {
         findViewById(R.id.txtShare).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                String body = Common.CURRENT_FEAT.title + "\n\n"+Common.IMAGE_URL+Common.CURRENT_FEAT.title_slug +"\n\nShared from "+getString(R.string.app_name)+" \n\n" +
-                        "Download "+getString(R.string.app_name)+" to get Latest News and Updates : https://play.google.com/store/apps/details?id="+getPackageName();
-                intent.putExtra(Intent.EXTRA_TEXT,body);
-                startActivity(Intent.createChooser(intent,"Share with : "));
+                Common.shareApp(FeatureDetActivity.this,Common.CURRENT_FEAT.title,Common.CURRENT_FEAT.title_slug);
             }
         });
 

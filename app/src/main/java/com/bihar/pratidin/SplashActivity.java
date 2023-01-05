@@ -41,7 +41,6 @@ import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final String CHANNEL_ID = "101";
     NoInternetDialog noInternetDialog;
 
     IMyAPI myAPI;
@@ -94,10 +93,12 @@ public class SplashActivity extends AppCompatActivity {
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
+                        Toast.makeText(SplashActivity.this, "Checking App Update...", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(SplashActivity.this, ""+t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -106,8 +107,8 @@ public class SplashActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(getString(R.string.notification_channel_id), name, importance);
             channel.setDescription(description);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
